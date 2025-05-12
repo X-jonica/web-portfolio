@@ -1,5 +1,7 @@
-# Bienvenue dans mon portfolio
+# Bienvenue dans mon portfolio  
 
-## info
+## Infos  
 
-**URL**: https://lovable.dev/projects/02882852-6a47-4d3f-b842-0c6e9bcc5a00
+Découvrez mon travail et mes projets en visitant mon portfolio ! Cliquez sur le lien ci-dessous pour voir le rendu en ligne.  
+
+🔗 **URL** : [https://mon-portfolio-beta-two.vercel.app/](https://mon-portfolio-beta-two.vercel.app/)  
