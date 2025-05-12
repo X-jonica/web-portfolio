@@ -39,7 +39,7 @@ const projects = [
         image: portfolio,
         technologies: ["React", "TypeScript", "Tailwind CSS", "Framer-motion"],
         liveUrl: "#",
-        githubUrl: "#",
+        githubUrl: "https://github.com/X-jonica/mon-portfolio",
     },
 ];
 

@@ -77,7 +77,6 @@ const Navbar = () => {
             className="text-foreground/70"
             whileTap={{ scale: 0.9 }}
           >
-            {/* Mobile menu button would go here */}
             Menu
           </motion.button>
         </div>
