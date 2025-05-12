@@ -1,10 +1,10 @@
-
 import React, { useState, useEffect } from 'react';
 import { ThemeToggle } from './ThemeToggle';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navItems = [
     { name: 'À propos', href: '#about' },
@@ -21,6 +21,10 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
 
   return (
     <motion.header 
@@ -42,6 +46,7 @@ const Navbar = () => {
           <a href="#hero">DevPortfolio</a>
         </motion.div>
         
+        {/* Menu desktop */}
         <div className="hidden md:flex items-center gap-6">
           {navItems.map((item, index) => (
             <motion.a 
@@ -65,6 +70,7 @@ const Navbar = () => {
           </motion.div>
         </div>
         
+        {/* Menu mobile */}
         <div className="md:hidden flex items-center gap-4">
           <motion.div
             initial={{ opacity: 0, scale: 0.5 }}
@@ -76,11 +82,41 @@ const Navbar = () => {
           <motion.button 
             className="text-foreground/70"
             whileTap={{ scale: 0.9 }}
+            onClick={toggleMobileMenu}
           >
-            Menu
+            {mobileMenuOpen ? 'Fermer' : 'Menu'}
           </motion.button>
         </div>
       </nav>
+
+      {/* Menu mobile overlay */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div 
+            className="md:hidden fixed inset-0 bg-background/95 backdrop-blur-lg z-40 pt-24"
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -50 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="container flex flex-col items-center gap-8 py-8">
+              {navItems.map((item, index) => (
+                <motion.a 
+                  key={item.name}
+                  href={item.href}
+                  className="text-2xl text-foreground/70 hover:text-primary transition-colors"
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1, duration: 0.3 }}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {item.name}
+                </motion.a>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.header>
   );
 };
