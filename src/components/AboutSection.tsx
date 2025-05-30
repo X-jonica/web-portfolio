@@ -93,7 +93,7 @@ const AboutSection = () => {
             </motion.div>
 
             <motion.div
-               className="mt-12 text-center"
+               className="mt-12 text-center space-x-4"
                initial={{ opacity: 0, y: 20 }}
                whileInView={{ opacity: 1, y: 0 }}
                viewport={{ once: true }}
@@ -101,10 +101,20 @@ const AboutSection = () => {
             >
                <Button variant="outline" asChild>
                   <a
-                     href="/CV_Jonica_Henintsoa.pdf"
+                     href="/CV_Jonica_Henintsoa_maj.pdf"
                      download="CV_Jonica_Henintsoa.pdf"
                   >
                      <FileText className="mr-2 h-4 w-4" /> Télécharger mon CV
+                  </a>
+               </Button>
+
+               <Button asChild>
+                  <a
+                     href="https://cvdesignr.com/p/R1on5ZzXKZ0EyMr"
+                     target="_blank"
+                     rel="noopener noreferrer"
+                  >
+                     <FileText className="mr-2 h-4 w-4" /> Voir mon CV en ligne
                   </a>
                </Button>
             </motion.div>
