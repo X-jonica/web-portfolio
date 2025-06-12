@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import project from "/images/projetPage.png";
 import portfolio from "/images/portfolio.png";
 import pandemioTech from "/images/pandemioTech.jpg";
+import technoweb from "/images/technoweb.png";
 
 const projects = [
     {
@@ -41,16 +42,22 @@ const projects = [
         liveUrl: "#",
         githubUrl: "https://github.com/X-jonica/mon-portfolio",
     },
-    { 
+    {
         title: "Application E-commerce Vue.js",
-        description: 
+        description:
             "Une petite application e-commerce développée avec Vue.js et Node.js, incluant la gestion des utilisateurs, l'authentification, la consultation des produits, et le panier. Le tout déployé avec un backend sécurisé sur Koyeb.",
-        image: portfolio, 
-        technologies: ["Vue.js", "Node.js", "Express", "Tailwind CSS", "Koyeb", "REST API"],
-        liveUrl: "https://techno-web-avance.vercel.app/", 
-        githubUrl: "https://github.com/X-jonica/frontend-technoweb-avance", 
-    }
-    
+        image: technoweb,
+        technologies: [
+            "Vue.js",
+            "Node.js",
+            "Express",
+            "Tailwind CSS",
+            "Koyeb",
+            "REST API",
+        ],
+        liveUrl: "https://techno-web-avance.vercel.app/",
+        githubUrl: "https://github.com/X-jonica/frontend-technoweb-avance",
+    },
 ];
 
 const container = {
