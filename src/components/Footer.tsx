@@ -1,137 +1,110 @@
-import React from "react";
-import { Github, Linkedin, Twitter, Instagram } from "lucide-react";
-import { motion } from "framer-motion";
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Heart, Github, Linkedin, Twitter, Mail } from 'lucide-react';
 
-const Footer = () => {
-    const currentYear = new Date().getFullYear();
+const Footer: React.FC = () => {
+  const currentYear = new Date().getFullYear();
 
-    const iconVariants = {
-        hover: {
-            scale: 1.2,
-            rotate: 5,
-            transition: { duration: 0.3 },
-        },
-    };
+  const socialLinks = [
+    { icon: Github, href: 'https://github.com/X-jonica', label: 'GitHub' },
+    { icon: Linkedin, href: 'https://www.linkedin.com/in/jonica-henintsoa-96a198357/', label: 'LinkedIn' },
+    { icon: Twitter, href: 'https://x.com/jonicahenintsoa', label: 'Twitter' },
+    { icon: Mail, href: '#contact', label: 'Contact' },
+  ];
 
-    const linkVariants = {
-        hover: {
-            color: "hsl(var(--primary))",
-            transition: { duration: 0.2 },
-        },
-    };
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
-    return (
-        <footer className="py-12 bg-card border-t border-border">
-            <div className="container">
-                <motion.div
-                    className="flex flex-col items-center"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8 }}
+  return (
+    <footer className="bg-white dark:bg-dark-bg border-t border-gray-200 dark:border-dark-border">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Brand */}
+          <div className="text-center md:text-left">
+            <motion.button
+              onClick={scrollToTop}
+              className="inline-block font-space font-bold text-2xl bg-gradient-to-r from-primary-500 to-accent-violet bg-clip-text text-transparent hover:scale-105 transition-transform duration-300"
+              whileHover={{ y: -2 }}
+            >
+              Portfolio
+            </motion.button>
+            <p className="mt-2 text-gray-600 dark:text-gray-400 font-inter">
+              Développeur Web Full-Stack
+            </p>
+            <p className="text-sm text-gray-500 dark:text-gray-500 font-inter">
+              Passionné par l'innovation et l'excellence technique
+            </p>
+          </div>
+
+          {/* Quick Links */}
+          <div className="text-center">
+            <h3 className="font-space font-semibold text-gray-900 dark:text-white mb-4">
+              Navigation
+            </h3>
+            <div className="space-y-2">
+              {['Accueil', 'Compétences', 'Projets', 'Contact'].map((item, index) => (
+                <motion.button
+                  key={index}
+                  onClick={() => {
+                    const element = document.querySelector(`#${item.toLowerCase()}`);
+                    if (element) {
+                      element.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }}
+                  className="block text-gray-600 dark:text-gray-400 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200 font-inter"
+                  whileHover={{ x: 4 }}
                 >
-                    <motion.div
-                        className="text-2xl font-bold text-primary mb-4"
-                        initial={{ scale: 0.8 }}
-                        whileInView={{ scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ type: "spring", stiffness: 100 }}
-                    >
-                        DevPortfolio
-                    </motion.div>
-
-                    <motion.p
-                        className="text-foreground/70 text-sm mb-6 text-center max-w-md"
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.2, duration: 0.5 }}
-                    >
-                        Développeur web passionné créant des expériences web
-                        modernes et performantes
-                    </motion.p>
-
-                    <motion.div
-                        className="flex gap-6 mb-8"
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.3, duration: 0.5 }}
-                    >
-                        <motion.a
-                            href="https://github.com/X-jonica"
-                            className="hover:text-primary transition-colors"
-                            aria-label="GitHub"
-                            variants={iconVariants}
-                            whileHover="hover"
-                        >
-                            <Github className="h-5 w-5" />
-                        </motion.a>
-                        <motion.a
-                            href="https://www.linkedin.com/in/jonica-henintsoa-96a198357/"
-                            className="hover:text-primary transition-colors"
-                            aria-label="LinkedIn"
-                            variants={iconVariants}
-                            whileHover="hover"
-                        >
-                            <Linkedin className="h-5 w-5" />
-                        </motion.a>
-                    </motion.div>
-
-                    <motion.nav
-                        className="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-6"
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.4, duration: 0.5 }}
-                    >
-                        <motion.a
-                            href="#about"
-                            className="text-sm text-foreground/70 hover:text-primary transition-colors"
-                            variants={linkVariants}
-                            whileHover="hover"
-                        >
-                            À propos
-                        </motion.a>
-                        <motion.a
-                            href="#skills"
-                            className="text-sm text-foreground/70 hover:text-primary transition-colors"
-                            variants={linkVariants}
-                            whileHover="hover"
-                        >
-                            Compétences
-                        </motion.a>
-                        <motion.a
-                            href="#projects"
-                            className="text-sm text-foreground/70 hover:text-primary transition-colors"
-                            variants={linkVariants}
-                            whileHover="hover"
-                        >
-                            Projets
-                        </motion.a>
-                        <motion.a
-                            href="#contact"
-                            className="text-sm text-foreground/70 hover:text-primary transition-colors"
-                            variants={linkVariants}
-                            whileHover="hover"
-                        >
-                            Contact
-                        </motion.a>
-                    </motion.nav>
-
-                    <motion.div
-                        className="text-xs text-foreground/50"
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.5, duration: 0.5 }}
-                    >
-                        © {currentYear} Jonica Henintsoa. Tous droits réservés.
-                    </motion.div>
-                </motion.div>
+                  {item}
+                </motion.button>
+              ))}
             </div>
-        </footer>
-    );
+          </div>
+
+          {/* Social Links */}
+          <div className="text-center md:text-right">
+            <h3 className="font-space font-semibold text-gray-900 dark:text-white mb-4">
+              Me suivre
+            </h3>
+            <div className="flex justify-center md:justify-end space-x-4">
+              {socialLinks.map((social, index) => (
+                <motion.a
+                  key={index}
+                  href={social.href}
+                  className="p-2 bg-gray-100 dark:bg-dark-card hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg transition-all duration-300 text-gray-600 dark:text-gray-400 hover:text-primary-500 dark:hover:text-primary-400"
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  title={social.label}
+                >
+                  <social.icon className="w-5 h-5" />
+                </motion.a>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Section */}
+        <div className="mt-8 pt-8 border-t border-gray-200 dark:border-dark-border">
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-gray-600 dark:text-gray-400 font-inter text-sm flex items-center"
+            >
+              © {currentYear} Portfolio. Fait avec
+              <Heart className="w-4 h-4 mx-1 text-red-500 animate-pulse" />
+              par un développeur passionné.
+            </motion.p>
+            
+            <div className="flex items-center space-x-4 text-sm text-gray-500 dark:text-gray-500 font-inter">
+              <span>Open to Work</span>
+              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
 };
 
 export default Footer;
