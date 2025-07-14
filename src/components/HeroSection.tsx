@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronDown, Download, Github, Linkedin, Mail } from "lucide-react";
+import profilePhoto from "../../public/images/me.jpg";
 
 const HeroSection: React.FC = () => {
    const [displayText, setDisplayText] = useState("");
@@ -39,13 +40,13 @@ const HeroSection: React.FC = () => {
    return (
       <section
          id="home"
-         className="min-h-screen relative overflow-hidden bg-gradient-to-br from-white via-blue-50 to-indigo-100 dark:from-dark-bg dark:via-gray-900 dark:to-dark-bg"
+         className="min-h-screen relative overflow-hidden from-white via-blue-50 to-indigo-100 dark:from-dark-bg dark:via-gray-900 dark:to-dark-bg"
       >
          {/* Animated Background */}
          <div className="absolute inset-0 opacity-30">
             <div className="absolute top-20 left-20 w-72 h-72 bg-primary-500 rounded-full mix-blend-multiply filter blur-xl animate-float"></div>
             <div
-               className="absolute top-40 right-20 w-72 h-72 bg-accent-violet rounded-full mix-blend-multiply filter blur-xl animate-float"
+               className="absolute top-40 right-20 w-72 h-72 bg-accent-stone rounded-full mix-blend-multiply filter blur-xl animate-float"
                style={{ animationDelay: "2s" }}
             ></div>
             <div
@@ -54,8 +55,9 @@ const HeroSection: React.FC = () => {
             ></div>
          </div>
 
-         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center min-h-screen pt-16">
-            <div className="text-center">
+         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center justify-between min-h-screen pt-16">
+            {/* Contenu textuel à gauche */}
+            <div className="lg:w-1/2 text-center lg:text-left mb-12 lg:mb-0">
                <motion.div
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -63,7 +65,7 @@ const HeroSection: React.FC = () => {
                   className="mb-6"
                >
                   <h2 className="text-3xl md:text-4xl font-space font-bold text-gray-800 dark:text-gray-200">
-                     <span className="bg-gradient-to-r from-primary-500 to-accent-violet bg-clip-text text-transparent">
+                     <span className="bg-gradient-to-r from-primary-500 to-accent-stone bg-clip-text text-transparent">
                         Jonica Henintsoa
                      </span>
                   </h2>
@@ -87,7 +89,7 @@ const HeroSection: React.FC = () => {
                   transition={{ delay: 0.4 }}
                   className="text-5xl md:text-7xl font-space font-bold text-gray-900 dark:text-white mb-6"
                >
-                  <span className="bg-gradient-to-r from-primary-500 via-accent-violet to-accent-cyan bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-primary-500 via-accent-stone to-accent-cyan bg-clip-text text-transparent">
                      {displayText}
                   </span>
                   <motion.span
@@ -104,11 +106,10 @@ const HeroSection: React.FC = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.8 }}
-                  className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto font-inter"
+                  className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto lg:mx-0 font-inter"
                >
-                  Passionné par la création d'expériences web modernes et
-                  performantes. Spécialisé en React, Node.js et technologies
-                  émergentes.
+                  Disponible pour des missions en CDI / CDD / freelance / stage.
+                  Toujours prêt à apprendre et évoluer avec les meilleurs.
                </motion.p>
 
                {/* CTA Buttons */}
@@ -116,11 +117,11 @@ const HeroSection: React.FC = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 1 }}
-                  className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
+                  className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-12"
                >
                   <motion.button
                      onClick={scrollToProjects}
-                     className="group px-8 py-4 bg-primary-500 hover:bg-primary-600 text-white rounded-xl font-medium transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-primary-500/25"
+                     className="group px-8 py-4 bg-primary-500 hover:bg-primary-600 text-white rounded font-medium transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-primary-500/25"
                      whileHover={{ y: -2 }}
                      whileTap={{ y: 0 }}
                   >
@@ -129,7 +130,7 @@ const HeroSection: React.FC = () => {
                   </motion.button>
 
                   <motion.button
-                     className="group px-8 py-4 border-2 border-gray-300 dark:border-gray-600 hover:border-primary-500 text-gray-700 dark:text-gray-300 hover:text-primary-500 rounded-xl font-medium transition-all duration-300 transform hover:scale-105"
+                     className="group px-4 md:px-8 py-3 md:py-4 border-2 border-gray-300 dark:border-gray-600 hover:border-primary-500 text-gray-700 dark:text-gray-300 hover:text-primary-500 rounded font-medium transition-all duration-300 transform hover:scale-105 flex justify-center items-center text-center"
                      whileHover={{ y: -2 }}
                      whileTap={{ y: 0 }}
                   >
@@ -144,13 +145,12 @@ const HeroSection: React.FC = () => {
                      </a>
                   </motion.button>
                </motion.div>
-
                {/* Social Links */}
                <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 1.2 }}
-                  className="flex justify-center space-x-6"
+                  className="flex justify-center lg:justify-start space-x-6"
                >
                   {socialLinks.map((social, index) => (
                      <motion.a
@@ -170,6 +170,23 @@ const HeroSection: React.FC = () => {
                   ))}
                </motion.div>
             </div>
+
+            {/* Photo à droite */}
+            <motion.div
+               initial={{ opacity: 0, x: 50 }}
+               animate={{ opacity: 1, x: 0 }}
+               transition={{ delay: 0.6 }}
+               className="lg:w-1/2 flex justify-center lg:justify-end"
+            >
+               <div className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96">
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary-500 to-accent-cyan rounded-full blur-md opacity-30 animate-pulse"></div>
+                  <img
+                     src={profilePhoto}
+                     alt="Jonica Henintsoa"
+                     className="relative z-10 w-full h-full object-cover rounded-full border-4 border-white dark:border-gray-800 shadow-xl"
+                  />
+               </div>
+            </motion.div>
 
             {/* Scroll Indicator */}
             <motion.div

@@ -71,12 +71,12 @@ const SkillsSection: React.FC = () => {
          id="skills"
          className="py-20 bg-gray-50 dark:bg-gray-900 relative overflow-hidden"
       >
-         {/* Background Pattern */}
-         <div className="absolute inset-0 opacity-5">
+         {/* Background Image développeur */}
+         <div className="absolute inset-0 opacity-30">
             <div
-               className="absolute inset-0"
+               className="absolute inset-0 bg-cover bg-center"
                style={{
-                  backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%234F46E5' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+                  backgroundImage: `url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80')`,
                }}
             ></div>
          </div>
@@ -89,8 +89,8 @@ const SkillsSection: React.FC = () => {
                className="text-center mb-16"
             >
                <h2 className="text-4xl md:text-5xl font-space font-bold text-gray-900 dark:text-white mb-4">
-                    Mes
-                  <span className="bg-gradient-to-r from-primary-500 to-accent-violet bg-clip-text text-transparent">
+                  Mes
+                  <span className="bg-gradient-to-r from-primary-500 to-accent-stone bg-clip-text text-transparent mx-3">
                      Compétences
                   </span>
                </h2>
@@ -138,7 +138,7 @@ const SkillsSection: React.FC = () => {
                                        {skill.level}%
                                     </span>
                                  </div>
-                                 <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                                 <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded overflow-hidden">
                                     <motion.div
                                        initial={{ width: 0 }}
                                        animate={
@@ -175,14 +175,20 @@ const SkillsSection: React.FC = () => {
                className="mt-16 text-center"
             >
                <h3 className="text-2xl font-space font-semibold text-gray-900 dark:text-white mb-8">
-                  Technologies maîtrisées
+                  Technologies expérimentées
                </h3>
                <div className="flex flex-wrap justify-center gap-3">
                   {[
                      "HTML5",
                      "CSS3",
                      "ES6",
+                     "React.js",
+                     "Angular.js",
+                     "Bootstrap",
+                     "Tailwind CSS",
+                     "JAVA",
                      "Python",
+                     "Flask",
                      "PHP",
                      "render",
                      "Vue.js",
@@ -199,7 +205,7 @@ const SkillsSection: React.FC = () => {
                            delay: 1 + index * 0.1,
                         }}
                         whileHover={{ scale: 1.1, y: -2 }}
-                        className="px-4 py-2 bg-gradient-to-r from-primary-100 to-purple-100 dark:from-primary-900/30 dark:to-purple-900/30 text-primary-700 dark:text-primary-300 rounded-full text-sm font-medium cursor-default border border-primary-200 dark:border-primary-700 hover:border-primary-400 dark:hover:border-primary-500 transition-all duration-200"
+                        className="px-4 py-2  from-primary-100 to-purple-100 dark:from-primary-900/30 dark:to-purple-900/30 text-primary-500 dark:text-primary-300 rounded text-medium font-medium cursor-default border border-primary-200 dark:border-primary-700 hover:border-primary-400 dark:hover:border-primary-500 transition-all duration-200"
                      >
                         {tech}
                      </motion.span>

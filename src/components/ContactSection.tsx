@@ -30,16 +30,6 @@ const ContactSection: React.FC = () => {
    const [isSubmitted, setIsSubmitted] = useState(false);
    const [emailCopied, setEmailCopied] = useState(false);
 
-   /*
-   useEffect(() => {
-      console.log("EmailJS Config:", {
-         serviceId: emailjsConfig.serviceId,
-         templateId: emailjsConfig.templateId,
-         userId: emailjsConfig.userId,
-      });
-   }, []);
-   */
-
    const handleSubmit = async (e: React.FormEvent) => {
       e.preventDefault();
       setIsSubmitting(true);
@@ -119,15 +109,14 @@ const ContactSection: React.FC = () => {
          id="contact"
          className="py-20 bg-gray-50 dark:bg-gray-900 relative overflow-hidden"
       >
-         {/* Background Pattern */}
-         <div className="absolute inset-0 opacity-5">
-            <div
-               className="absolute inset-0"
-               style={{
-                  backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%234F46E5' fill-opacity='0.1'%3E%3Cpath d='M20 20c0-11.046-8.954-20-20-20v20h20z'/%3E%3C/g%3E%3C/svg%3E")`,
-               }}
-            ></div>
-         </div>
+         {/* Background Image from Unsplash */}
+         <div
+            className="absolute inset-0 opacity-20 bg-cover bg-center bg-no-repeat"
+            style={{
+               backgroundImage:
+                  'url("https://images.unsplash.com/photo-1522542550221-31fd19575a2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80")',
+            }}
+         ></div>
 
          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
@@ -138,7 +127,7 @@ const ContactSection: React.FC = () => {
             >
                <h2 className="text-4xl md:text-5xl font-space font-bold text-gray-900 dark:text-white mb-4">
                   Travaillons{" "}
-                  <span className="bg-gradient-to-r from-primary-500 to-accent-violet bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-primary-500 to-accent-stone bg-clip-text text-transparent">
                      Ensemble
                   </span>
                </h2>
@@ -174,7 +163,7 @@ const ContactSection: React.FC = () => {
                               onClick={info.action}
                               className="group flex items-center space-x-4 p-4 bg-white dark:bg-dark-card rounded-xl hover:shadow-lg transition-all duration-300 cursor-pointer border border-gray-200 dark:border-dark-border hover:border-primary-300 dark:hover:border-primary-600"
                            >
-                              <div className="p-3 bg-gradient-to-br from-primary-500 to-accent-violet rounded-lg text-white group-hover:scale-110 transition-transform duration-300">
+                              <div className="p-3 bg-gradient-to-br from-primary-500 to-accent-stone rounded-lg text-white group-hover:scale-110 transition-transform duration-300">
                                  <info.icon className="w-6 h-6" />
                               </div>
                               <div className="flex-1">
@@ -341,7 +330,7 @@ const ContactSection: React.FC = () => {
                      <motion.button
                         type="submit"
                         disabled={isSubmitting || isSubmitted}
-                        className="w-full px-6 py-4 bg-gradient-to-r from-primary-500 to-accent-violet hover:from-primary-600 hover:to-accent-violet text-white font-medium rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-primary-500/25 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2"
+                        className="w-full px-6 py-4 bg-gradient-to-r from-primary-500 to-accent-stone hover:from-primary-600 hover:to-accent-stone text-white font-medium rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-primary-500/25 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2"
                         whileHover={{ y: -2 }}
                         whileTap={{ y: 0 }}
                      >

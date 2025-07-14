@@ -94,8 +94,8 @@ const ProjectsSection: React.FC = () => {
   return (
     <section id="projects" className="py-20 bg-white dark:bg-dark-bg relative overflow-hidden">
       {/* Background Elements */}
-      <div className="absolute top-20 right-20 w-64 h-64 bg-gradient-to-br from-primary-500/10 to-accent-violet/10 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-20 left-20 w-64 h-64 bg-gradient-to-br from-accent-cyan/10 to-emerald-500/10 rounded-full blur-3xl"></div>
+      <div className="absolute top-20 right-20 w-64 h-64 bg-gradient-to-br from-primary-500/10 to-accent-stone/10 rounded blur-3xl"></div>
+      <div className="absolute bottom-20 left-20 w-64 h-64 bg-gradient-to-br from-accent-cyan/10 to-emerald-500/10 rounded blur-3xl"></div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
@@ -105,7 +105,7 @@ const ProjectsSection: React.FC = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-space font-bold text-gray-900 dark:text-white mb-4">
-            Mes <span className="bg-gradient-to-r from-primary-500 to-accent-violet bg-clip-text text-transparent">Projets</span>
+            Mes <span className="bg-gradient-to-r from-primary-500 to-accent-stone bg-clip-text text-transparent">Projets</span>
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto font-inter">
             Une sélection de projets qui démontrent ma passion pour l'innovation et l'excellence technique
@@ -125,7 +125,7 @@ const ProjectsSection: React.FC = () => {
               variants={cardVariants}
               className="group relative"
             >
-              <div className="bg-white dark:bg-dark-card rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-200 dark:border-dark-border hover:border-primary-300 dark:hover:border-primary-600">
+              <div className="bg-white dark:bg-dark-card rounded overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-200 dark:border-dark-border hover:border-primary-300 dark:hover:border-primary-600">
                 {/* Project Image */}
                 <div className="relative h-48 overflow-hidden">
                   <img
@@ -140,7 +140,7 @@ const ProjectsSection: React.FC = () => {
                   
                   {/* Category Badge */}
                   <div className="absolute top-4 left-4">
-                    <div className={`px-3 py-1 bg-gradient-to-r ${project.color} text-white text-sm font-medium rounded-full flex items-center space-x-1`}>
+                    <div className={`px-3 py-1 bg-gradient-to-r ${project.color} text-white text-sm font-medium rounded-2xl flex items-center space-x-1`}>
                       <project.icon className="w-4 h-4" />
                       <span>{project.category}</span>
                     </div>
@@ -184,7 +184,7 @@ const ProjectsSection: React.FC = () => {
                         initial={{ opacity: 0, scale: 0 }}
                         animate={isInView ? { opacity: 1, scale: 1 } : {}}
                         transition={{ duration: 0.3, delay: index * 0.1 + tagIndex * 0.05 }}
-                        className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm rounded-full font-medium hover:bg-primary-100 dark:hover:bg-primary-900/30 hover:text-primary-700 dark:hover:text-primary-300 transition-colors cursor-default"
+                        className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm rounded font-medium hover:bg-primary-100 dark:hover:bg-primary-900/30 hover:text-primary-700 dark:hover:text-primary-300 transition-colors cursor-default"
                       >
                         {tag}
                       </motion.span>
@@ -205,7 +205,7 @@ const ProjectsSection: React.FC = () => {
         >
           <motion.a
             target= "_blank"
-            className="group px-8 py-4 bg-gradient-to-r from-primary-500 to-accent-violet hover:from-primary-600 hover:to-accent-violet text-white rounded-xl font-medium transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-primary-500/25"
+            className="group px-8 py-4 bg-gradient-to-r from-primary-500 to-accent-stone hover:from-primary-600 hover:to-accent-stone text-white rounded font-medium transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-primary-500/25"
             whileHover={{ y: -2 }}
             whileTap={{ y: 0 }}
             href='https://github.com/X-jonica'

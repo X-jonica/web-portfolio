@@ -32,24 +32,29 @@ const Navigation: React.FC = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <motion.div
-            className="font-space font-bold text-xl bg-gradient-to-r from-primary-500 to-accent-violet bg-clip-text text-transparent"
+            className="font-space font-bold text-xl bg-gradient-to-r from-primary-500 to-accent-stone bg-clip-text text-transparent"
             whileHover={{ scale: 1.05 }}
           >
             Portfolio
           </motion.div>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation - Version modifiée avec soulignement */}
           <div className="hidden md:flex space-x-8">
             {navItems.map((item) => (
-              <motion.button
+              <motion.div 
                 key={item.href}
-                onClick={() => scrollToSection(item.href)}
-                className="text-gray-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200 font-inter font-medium"
+                className="relative"
                 whileHover={{ y: -2 }}
                 whileTap={{ y: 0 }}
               >
-                {item.label}
-              </motion.button>
+                <button
+                  onClick={() => scrollToSection(item.href)}
+                  className="text-gray-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200 font-inter font-medium relative group"
+                >
+                  {item.label}
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-500 dark:bg-primary-400 transition-all duration-300 group-hover:w-full"></span>
+                </button>
+              </motion.div>
             ))}
           </div>
 
@@ -84,7 +89,7 @@ const Navigation: React.FC = () => {
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu - Version modifiée avec soulignement */}
         <motion.div
           initial={false}
           animate={{ height: isMenuOpen ? 'auto' : 0, opacity: isMenuOpen ? 1 : 0 }}
@@ -92,14 +97,19 @@ const Navigation: React.FC = () => {
         >
           <div className="py-4 space-y-2">
             {navItems.map((item) => (
-              <motion.button
+              <motion.div
                 key={item.href}
-                onClick={() => scrollToSection(item.href)}
-                className="block w-full text-left px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 hover:bg-gray-100 dark:hover:bg-dark-card rounded-lg transition-colors duration-200 font-inter font-medium"
                 whileHover={{ x: 4 }}
+                className="relative"
               >
-                {item.label}
-              </motion.button>
+                <button
+                  onClick={() => scrollToSection(item.href)}
+                  className="block w-full text-left px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200 font-inter font-medium group"
+                >
+                  {item.label}
+                  <span className="absolute bottom-2 left-4 w-0 h-0.5 bg-primary-500 dark:bg-primary-400 transition-all duration-300 group-hover:w-[calc(100%-2rem)]"></span>
+                </button>
+              </motion.div>
             ))}
           </div>
         </motion.div>

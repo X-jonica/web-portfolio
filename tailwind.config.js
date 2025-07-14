@@ -10,17 +10,17 @@ export default {
       },
       colors: {
         primary: {
-          50: '#eef2ff',
-          100: '#e0e7ff',
-          500: '#4f46e5',
-          600: '#4338ca',
-          700: '#3730a3',
-          900: '#1e1b4b',
+          50: '#f0f9ff',      // Bleu très clair (sky-50)
+          100: '#e0f2fe',     // Bleu clair (sky-100)
+          500: '#3b82f6',     // Bleu vif (blue-500)
+          600: '#2563eb',     // Bleu foncé (blue-600)
+          700: '#1d4ed8',     // Bleu profond (blue-700)
+          900: '#1e3a8a',     // Bleu marine (blue-900)
         },
         accent: {
           cyan: '#06b6d4',
-          violet: '#8b5cf6',
           emerald: '#10b981',
+          stone: '#6b7280', 
         },
         dark: {
           bg: '#0f0f0f',
