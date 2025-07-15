@@ -1,118 +1,98 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Moon, Sun, Menu, X } from 'lucide-react';
+import { Moon, Sun, Globe } from 'lucide-react';
 import { useTheme } from '../contexts/ThemeContext';
+import { useLanguage } from '../contexts/LanguageContext';
 
-const Navigation: React.FC = () => {
+interface NavigationProps {
+  activeSection: string;
+}
+
+const Navigation: React.FC<NavigationProps> = ({ activeSection }) => {
   const { isDark, toggleTheme } = useTheme();
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const { language, toggleLanguage, t } = useLanguage();
 
-  const navItems = [
-    { href: '#home', label: 'Accueil' },
-    { href: '#skills', label: 'Compétences' },
-    { href: '#projects', label: 'Projets' },
-    { href: '#contact', label: 'Contact' },
-  ];
-
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
-      setIsMenuOpen(false);
     }
   };
+
+  const navItems = [
+    { id: 'home', label: t('home') },
+    { id: 'about', label: t('about') },
+    { id: 'skills', label: t('skills') },
+    { id: 'projects', label: t('projects') },
+    { id: 'contact', label: t('contact') }
+  ];
 
   return (
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      className="fixed top-0 left-0 right-0 z-50 bg-white/10 dark:bg-dark-bg/10 backdrop-blur-md border-b border-gray-200/20 dark:border-dark-border/20"
+      className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <motion.div
-            className="font-space font-bold text-xl bg-gradient-to-r from-primary-500 to-accent-stone bg-clip-text text-transparent"
             whileHover={{ scale: 1.05 }}
+            className="font-bold text-xl text-gray-800 dark:text-white"
           >
             Portfolio
           </motion.div>
 
-          {/* Desktop Navigation - Version modifiée avec soulignement */}
-          <div className="hidden md:flex space-x-8">
+          {/* Navigation items - caché sur mobile */}
+          <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
-              <motion.div 
-                key={item.href}
-                className="relative"
-                whileHover={{ y: -2 }}
-                whileTap={{ y: 0 }}
+              <motion.button
+                key={item.id}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => scrollToSection(item.id)}
+                className={`relative px-3 py-2 text-sm font-medium transition-colors duration-200 ${
+                  activeSection === item.id
+                    ? 'text-green-600 dark:text-green-400'
+                    : 'text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white'
+                }`}
               >
-                <button
-                  onClick={() => scrollToSection(item.href)}
-                  className="text-gray-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200 font-inter font-medium relative group"
-                >
-                  {item.label}
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-500 dark:bg-primary-400 transition-all duration-300 group-hover:w-full"></span>
-                </button>
-              </motion.div>
+                {item.label}
+                {activeSection === item.id && (
+                  <motion.div
+                    layoutId="activeSection"
+                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-green-600 dark:bg-green-400"
+                  />
+                )}
+              </motion.button>
             ))}
           </div>
 
-          {/* Theme Toggle & Mobile Menu */}
+          {/* Controls */}
           <div className="flex items-center space-x-4">
+            {/* Language toggle */}
             <motion.button
-              onClick={toggleTheme}
-              className="p-2 rounded-lg bg-gray-100 dark:bg-dark-card hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
+              onClick={toggleLanguage}
+              className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
             >
-              {isDark ? (
-                <Sun className="w-5 h-5 text-yellow-500" />
-              ) : (
-                <Moon className="w-5 h-5 text-gray-600" />
-              )}
+              <span className="text-sm font-medium">
+                {language === 'fr' ? '🇫🇷' : '🇬🇧'}
+              </span>
             </motion.button>
 
-            {/* Mobile Menu Button */}
+            {/* Theme toggle */}
             <motion.button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden p-2 rounded-lg bg-gray-100 dark:bg-dark-card hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
+              onClick={toggleTheme}
+              className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
             >
-              {isMenuOpen ? (
-                <X className="w-5 h-5" />
-              ) : (
-                <Menu className="w-5 h-5" />
-              )}
+              {isDark ? <Sun size={20} /> : <Moon size={20} />}
             </motion.button>
           </div>
         </div>
-
-        {/* Mobile Menu - Version modifiée avec soulignement */}
-        <motion.div
-          initial={false}
-          animate={{ height: isMenuOpen ? 'auto' : 0, opacity: isMenuOpen ? 1 : 0 }}
-          className="md:hidden overflow-hidden"
-        >
-          <div className="py-4 space-y-2">
-            {navItems.map((item) => (
-              <motion.div
-                key={item.href}
-                whileHover={{ x: 4 }}
-                className="relative"
-              >
-                <button
-                  onClick={() => scrollToSection(item.href)}
-                  className="block w-full text-left px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200 font-inter font-medium group"
-                >
-                  {item.label}
-                  <span className="absolute bottom-2 left-4 w-0 h-0.5 bg-primary-500 dark:bg-primary-400 transition-all duration-300 group-hover:w-[calc(100%-2rem)]"></span>
-                </button>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
       </div>
     </motion.nav>
   );
