@@ -12,7 +12,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Logo et description */}
           <div>
-            <h3 className="text-2xl font-bold mb-4">John Doe</h3>
+            <h3 className="text-2xl font-bold mb-4">Jonica Henintsoa</h3>
             <p className="text-gray-300 mb-4">
               Développeur web junior passionné par la création d'applications modernes et performantes.
             </p>
