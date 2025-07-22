@@ -1,7 +1,5 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Moon, Sun, Globe } from 'lucide-react';
-import { useTheme } from '../contexts/ThemeContext';
 import { useLanguage } from '../contexts/LanguageContext';
 
 interface NavigationProps {
@@ -9,7 +7,6 @@ interface NavigationProps {
 }
 
 const Navigation: React.FC<NavigationProps> = ({ activeSection }) => {
-  const { isDark, toggleTheme } = useTheme();
   const { language, toggleLanguage, t } = useLanguage();
 
   const scrollToSection = (sectionId: string) => {
@@ -80,16 +77,6 @@ const Navigation: React.FC<NavigationProps> = ({ activeSection }) => {
               <span className="text-sm font-medium">
                 {language === 'fr' ? '🇫🇷' : '🇬🇧'}
               </span>
-            </motion.button>
-
-            {/* Theme toggle */}
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              onClick={toggleTheme}
-              className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-            >
-              {isDark ? <Sun size={20} /> : <Moon size={20} />}
             </motion.button>
           </div>
         </div>
