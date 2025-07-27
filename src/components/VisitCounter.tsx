@@ -39,7 +39,7 @@ export const VisitCounter = () => {
             emailjsConfig.templateId,
             {
                subject: "Nouvelle visite sur votre portfolio !", // Sujet de l'email
-               message: `Quelqu'un vient de visiter votre profil (visite n°${count}).`,
+               message: `Quelqu'un vient de visiter votre portfolio.`,
                visit_count: count,
                timestamp: new Date().toLocaleString(),
                visitor_info: navigator.userAgent,
@@ -60,13 +60,7 @@ export const VisitCounter = () => {
          className="fixed top-20 right-4 z-40 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-lg p-3 shadow-lg border border-gray-200 dark:border-gray-700"
       >
          <div className="flex items-center gap-2 text-sm">
-            <Eye size={16} className="text-green-600 dark:text-green-400" />
-            <span className="font-medium text-gray-700 dark:text-gray-300">
-               {visitCount}
-            </span>
-            <span className="text-gray-500 dark:text-gray-400">
-               {visitCount === 1 ? t("visit") : t("visits")}
-            </span>
+            <Eye size={16} className="dark:text-green-400" />
          </div>
       </motion.div>
    );
