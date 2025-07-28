@@ -8,59 +8,91 @@ import soundWave from '../../public/images/SoundWave.png'
 import technoWeb from '../../public/images/technoweb.png'
 import projetPage from '../../public/images/projetPage.png'
 import monPortfolio from '../../public/images/mon_portfolio.png'
+import todo from '../../public/images/Todo_list.png'
 
 const Projects = () => {
   const { t } = useLanguage();
 
   const projects = [
     {
-      title: 'Landing page',
-      description: 'Une landing page réalisée en HTML et CSS pour mettre en valeur les produits d’un café. Design responsive, projet en cours d’amélioration.',
-      image: cafe_vitrine ,
-      tech: ['HTML', 'CSS'],
-      github: 'https://github.com/X-jonica/web_cafe_vitrine',
-      live: 'https://x-jonica.github.io/web_cafe_vitrine/'
+      title: "Landing page",
+      description:
+        "Une landing page réalisée en HTML et CSS pour mettre en valeur les produits d’un café. Design responsive, projet en cours d’amélioration.",
+      image: cafe_vitrine,
+      tech: ["HTML", "CSS"],
+      github: "https://github.com/X-jonica/web_cafe_vitrine",
+      live: "https://x-jonica.github.io/web_cafe_vitrine/",
     },
     {
-      title: 'Plateforme de gestion des épidémies',
-      description: 'Une plateforme conçu par notre equipe,  gestion des épidémies mondiales, exploitant Big Data et IA pour la visualisation, la prédiction et la recherche cartographique.',
+      title: "Mini Todo List",
+      description:
+        "Cette application est une simple todo list réalisée en HTML, CSS et JavaScript. Elle a été conçue dans le but de réviser les bases du DOM, des événements, du stockage local et de la manipulation dynamique d'éléments HTML.",
+      image: todo,
+      tech: ["HTML", "CSS", "JavaScript"],
+      github: "https://github.com/X-jonica/static-to-do",
+      live: "https://x-jonica.github.io/static-to-do/",
+    },
+    {
+      title: "Plateforme de gestion des épidémies",
+      description:
+        "Une plateforme conçu par notre equipe,  gestion des épidémies mondiales, exploitant Big Data et IA pour la visualisation, la prédiction et la recherche cartographique.",
       image: pandemioTech,
-      tech: ['React', 'Tailwind CSS', 'Exress.js', 'Python', 'chatgpt'],
-      github: 'https://github.com/IJwesley601/EMIHACK-T',
-      live: '#'
+      tech: ["React", "Tailwind CSS", "Exress.js", "Python", "chatgpt"],
+      github: "https://github.com/IJwesley601/EMIHACK-T",
+      live: "#",
     },
     {
-      title: 'Application de reconnaissance musicale',
-      description: 'Application web de recherche musicale intégrant l’IA YAMNet pour analyser le contenu sonore d’un fichier audio. En collaboration avec Judio, Faniry, Madone et Dhelys.',
+      title: "Application de reconnaissance musicale",
+      description:
+        "Application web de recherche musicale intégrant l’IA YAMNet pour analyser le contenu sonore d’un fichier audio. En collaboration avec Judio, Faniry, Madone et Dhelys.",
       image: soundWave,
-      tech: ['React', 'API REST', 'Flask', 'AUDD', 'JWT', 'Neon.tech', 'chatgpt'],
-      github: 'https://github.com/X-jonica/audio-python',
-      live: 'https://audio-python-beta.vercel.app/'
+      tech: [
+        "React",
+        "API REST",
+        "Flask",
+        "AUDD",
+        "JWT",
+        "Neon.tech",
+        "chatgpt",
+      ],
+      github: "https://github.com/X-jonica/audio-python",
+      live: "https://audio-python-beta.vercel.app/",
     },
     {
-      title: 'Mini-application E-commerce',
-      description: 'Une petite application e-commerce développée avec Vue.js et Node.js, incluant une  authentification, la consultation des produits, et le panier.',
+      title: "Mini-application E-commerce",
+      description:
+        "Une petite application e-commerce développée avec Vue.js et Node.js, incluant une  authentification, la consultation des produits, et le panier.",
       image: technoWeb,
-      tech: ['Vue.js', 'Express', 'Neon.tech', 'JWT', 'postgreSQL', 'render.com', 'chatgpt'],
-      github: 'https://github.com/X-jonica/frontend-technoweb-avance',
-      live: 'https://techno-web-avance.vercel.app/'
+      tech: [
+        "Vue.js",
+        "Express",
+        "Neon.tech",
+        "JWT",
+        "postgreSQL",
+        "render.com",
+        "chatgpt",
+      ],
+      github: "https://github.com/X-jonica/frontend-technoweb-avance",
+      live: "https://techno-web-avance.vercel.app/",
     },
     {
-      title: 'Application de gestion de projet',
-      description: 'Application permettant aux utilisateurs de gérer leurs projets informatique avec des fonctionnalités de trie, de suivis et organisation.',
+      title: "Application de gestion de projet",
+      description:
+        "Application permettant aux utilisateurs de gérer leurs projets informatique avec des fonctionnalités de trie, de suivis et organisation.",
       image: projetPage,
-      tech: ['React', 'JAVA EE', 'Wildfly 27.0.0', 'postgreSQL', 'chatgpt'],
-      github: 'https://github.com/X-jonica/web-project-management',
-      live: 'https://github.com/X-jonica/web-project-management'
+      tech: ["React", "JAVA EE", "Wildfly 27.0.0", "postgreSQL", "chatgpt"],
+      github: "https://github.com/X-jonica/web-project-management",
+      live: "https://github.com/X-jonica/web-project-management",
     },
     {
-      title: 'Mon Portfolio',
-      description: 'Un portfolio interactif présentant des animations avancées et une expérience utilisateur immersive.',
+      title: "Mon Portfolio",
+      description:
+        "Un portfolio interactif présentant des animations avancées et une expérience utilisateur immersive.",
       image: monPortfolio,
-      tech: ['React', 'Tailwind css', 'bolt.new', 'EmailJS', 'deepseek'],
-      github: 'https://github.com/X-jonica/web-portfolio',
-      live: 'https://mon-portfolio-beta-two.vercel.app/'
-    }
+      tech: ["React", "Tailwind css", "bolt.new", "EmailJS", "deepseek"],
+      github: "https://github.com/X-jonica/web-portfolio",
+      live: "https://mon-portfolio-beta-two.vercel.app/",
+    },
   ];
 
   return (
