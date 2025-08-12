@@ -1,14 +1,15 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { ExternalLink, Github } from 'lucide-react';
-import { useLanguage } from '../contexts/LanguageContext';
-import cafe_vitrine from '../../public/images/cafe_vitrine.png'
-import pandemioTech from '../../public/images/pandemioTech.jpg'
-import soundWave from '../../public/images/SoundWave.png'
-import technoWeb from '../../public/images/technoweb.png'
-import projetPage from '../../public/images/projetPage.png'
-import monPortfolio from '../../public/images/mon_portfolio.png'
-import todo from '../../public/images/Todo_list.png'
+import React from "react";
+import { motion } from "framer-motion";
+import { ExternalLink, Github } from "lucide-react";
+import { useLanguage } from "../contexts/LanguageContext";
+import cafe_vitrine from "../../public/images/cafe_vitrine.png";
+import pandemioTech from "../../public/images/pandemioTech.jpg";
+import soundWave from "../../public/images/SoundWave.png";
+import technoWeb from "../../public/images/technoweb.png";
+import projetPage from "../../public/images/projetPage.png";
+import monPortfolio from "../../public/images/mon_portfolio.png";
+import dashboardSecurePass from "../../public/images/SecurePass-Home-visible-parts.png";
+import todo from "../../public/images/Todo_list.png";
 
 const Projects = () => {
   const { t } = useLanguage();
@@ -17,9 +18,9 @@ const Projects = () => {
     {
       title: "Landing page",
       description:
-        "Une landing page réalisée en HTML et CSS pour mettre en valeur les produits d’un café. Design responsive, projet en cours d’amélioration.",
+        "Landing page réalisée en HTML et CSS, conçue pour mettre en valeur les produits d’un café local. Le design est responsive pour offrir une expérience optimale sur tous les appareils. Ce projet est actuellement en cours d’amélioration avec l’ajout de nouvelles fonctionnalités.",
       image: cafe_vitrine,
-      tech: ["HTML", "CSS"],
+      tech: ["HTML", "CSS", "JavaScript"],
       github: "https://github.com/X-jonica/web_cafe_vitrine",
       live: "https://x-jonica.github.io/web_cafe_vitrine/",
     },
@@ -33,9 +34,18 @@ const Projects = () => {
       live: "https://x-jonica.github.io/static-to-do/",
     },
     {
+      title: "Application de gestion de mots de passe",
+      description:
+        "SecurePass est une application sécurisée de gestion de mots de passe développée en PHP natif, sans framework. Elle permet de stocker, générer et gérer vos mots de passe en toute sécurité. Le projet propose deux modes d’installation : via Docker pour un déploiement rapide et isolé, ou en local avec PHP et un serveur type XAMPP/LAMP. ",
+      image: dashboardSecurePass,
+      tech: ["HTML", "CSS", "JavaScript", "PHP", "Bootstrap", "Docker"],
+      github: "https://github.com/X-jonica/docker_pass_php",
+      live: "https://github.com/X-jonica/docker_pass_php",
+    },
+    {
       title: "Plateforme de gestion des épidémies",
       description:
-        "Une plateforme conçu par notre equipe,  gestion des épidémies mondiales, exploitant Big Data et IA pour la visualisation, la prédiction et la recherche cartographique.",
+        "L’équipe G-RTX a développé une plateforme innovante pour la gestion des épidémies mondiales, qui a remporté la deuxième place lors d’une compétition. Cette solution utilise le Big Data et l’Intelligence Artificielle pour permettre la visualisation, la prédiction et la recherche cartographique des données épidémiologiques à l’échelle mondiale.",
       image: pandemioTech,
       tech: ["React", "Tailwind CSS", "Exress.js", "Python", "chatgpt"],
       github: "https://github.com/IJwesley601/EMIHACK-T",
@@ -106,7 +116,7 @@ const Projects = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-6">
-            {t('projectsTitle')}
+            {t("projectsTitle")}
           </h2>
         </motion.div>
 
@@ -157,7 +167,7 @@ const Projects = () => {
                     className="flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors duration-200"
                   >
                     <ExternalLink size={16} />
-                    {t('viewProject')}
+                    {t("viewProject")}
                   </motion.a>
                   <motion.a
                     href={project.github}
@@ -166,7 +176,7 @@ const Projects = () => {
                     className="flex items-center gap-2 px-4 py-2 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg transition-colors duration-200"
                   >
                     <Github size={16} />
-                    {t('viewCode')}
+                    {t("viewCode")}
                   </motion.a>
                 </div>
               </div>
