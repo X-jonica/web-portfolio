@@ -84,7 +84,7 @@ const Hero = () => {
                      >
                         <Download size={18} />
                         <a
-                           href="https://cvdesignr.com/p/eEyZKzRepOOOo6A"
+                           href="https://cvdesignr.com/p/689d9cab81e04"
                            target="_blank"
                            rel="noopener noreferrer"
                            className="flex items-center"
