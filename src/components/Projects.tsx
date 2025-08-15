@@ -66,7 +66,7 @@ const Projects = () => {
         "chatgpt",
       ],
       github: "https://github.com/X-jonica/audio-python",
-      live: "https://audio-python-beta.vercel.app/",
+      live: "https://github.com/X-jonica/audio-python",
     },
     {
       title: "Mini-application E-commerce",
