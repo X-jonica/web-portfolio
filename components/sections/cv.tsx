@@ -88,7 +88,7 @@ export function CV() {
                                         </div>
                                         <div>
                                             <div className="text-3xl font-bold text-primary mb-1">
-                                                10+
+                                                08+
                                             </div>
                                             <div className="text-sm text-muted-foreground">
                                                 Projets réalisés
@@ -96,7 +96,7 @@ export function CV() {
                                         </div>
                                         <div>
                                             <div className="text-3xl font-bold text-primary mb-1">
-                                                5+
+                                                1+
                                             </div>
                                             <div className="text-sm text-muted-foreground">
                                                 Certifications
