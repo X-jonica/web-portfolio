@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, Phone, Linkedin, Github, Facebook, Send } from "lucide-react";
 import {
@@ -16,58 +16,49 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { SITE_CONFIG } from "@/lib/constants";
+import emailjs from "@emailjs/browser";
+import { emailjsConfig } from "../../config/email";
 
 export function Contact() {
     const { toast } = useToast();
+    const formRef = useRef<HTMLFormElement>(null);
     const [formData, setFormData] = useState({
         name: "",
         email: "",
+        subject: "",
         message: "",
-        honeypot: "",
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isSubmitted, setIsSubmitted] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-
-        if (formData.honeypot) {
-            return;
-        }
-
-        if (!formData.name || !formData.email || !formData.message) {
-            toast({
-                title: "Erreur",
-                description: "Veuillez remplir tous les champs",
-                variant: "destructive",
-            });
-            return;
-        }
-
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(formData.email)) {
-            toast({
-                title: "Erreur",
-                description: "Veuillez entrer une adresse email valide",
-                variant: "destructive",
-            });
-            return;
-        }
-
         setIsSubmitting(true);
 
-        try {
-            await new Promise((resolve) => setTimeout(resolve, 1000));
+        if (!formRef.current) return;
 
+        try {
+            // 1. Envoi EmailJS
+            await emailjs.sendForm(
+                emailjsConfig.serviceId,
+                emailjsConfig.templateId,
+                formRef.current,
+                emailjsConfig.userId
+            );
+
+            // 2. Toast de succès
             toast({
                 title: "Message envoyé !",
-                description: "Je vous répondrai dans les plus brefs délais.",
+                description: "Je vous répondrai très bientôt.",
             });
 
-            setFormData({ name: "", email: "", message: "", honeypot: "" });
+            // 3. Reset form
+            setFormData({ name: "", email: "", subject: "", message: "" });
         } catch (error) {
+            console.error("Email sending error:", error);
             toast({
-                title: "Erreur",
-                description: `Une erreur est survenue. Veuillez réessayer. ${error}`,
+                title: "Erreur lors de l'envoi",
+                description: "Veuillez réessayer plus tard.",
                 variant: "destructive",
             });
         } finally {
@@ -106,7 +97,7 @@ export function Contact() {
                             <Card>
                                 <CardHeader>
                                     <CardTitle>
-                                        Envoyez-moi un message
+                                        Envoyez-moi un subject
                                     </CardTitle>
                                     <CardDescription>
                                         Remplissez le formulaire ci-dessous et
@@ -119,18 +110,17 @@ export function Contact() {
                                         className="space-y-4"
                                     >
                                         <div className="sr-only">
-                                            <Label htmlFor="honeypot">
+                                            <Label htmlFor="message">
                                                 Don&apos;t fill this out
                                             </Label>
                                             <Input
-                                                id="honeypot"
-                                                name="honeypot"
-                                                value={formData.honeypot}
+                                                id="message"
+                                                name="message"
+                                                value={formData.message}
                                                 onChange={(e) =>
                                                     setFormData({
                                                         ...formData,
-                                                        honeypot:
-                                                            e.target.value,
+                                                        message: e.target.value,
                                                     })
                                                 }
                                                 tabIndex={-1}
@@ -174,17 +164,17 @@ export function Contact() {
                                         </div>
 
                                         <div className="space-y-2">
-                                            <Label htmlFor="message">
-                                                Message
+                                            <Label htmlFor="subject">
+                                                subject
                                             </Label>
                                             <Textarea
-                                                id="message"
-                                                placeholder="Votre message..."
-                                                value={formData.message}
+                                                id="subject"
+                                                placeholder="Votre subject..."
+                                                value={formData.subject}
                                                 onChange={(e) =>
                                                     setFormData({
                                                         ...formData,
-                                                        message: e.target.value,
+                                                        subject: e.target.value,
                                                     })
                                                 }
                                                 rows={6}
