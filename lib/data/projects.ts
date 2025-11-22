@@ -1,11 +1,11 @@
 export const PROJECTS = [
     {
-        id: "Landing page",
+        id: "landing-page",
         title: "Café Vitrine (L1)",
         shortDescription:
             "Création d'une simple landing page en HTML et CSS pour débuter.",
         description:
-            "Landing page réalisée en HTML et CSS, conçue pour mettre en valeur les produits d’un café local. Le design est responsive afin d'offrir une expérience optimale sur tous les appareils. Ce projet est actuellement en cours d’amélioration avec l’ajout de nouvelles fonctionnalités.",
+            "Landing page réalisée en HTML et CSS, conçue pour mettre en valeur les produits d'un café local. Le design est responsive afin d'offrir une expérience optimale sur tous les appareils. Ce projet est actuellement en cours d'amélioration avec l'ajout de nouvelles fonctionnalités.",
         technologies: ["HTML5", "CSS", "JavaScript"],
         challenges: [
             "Respecter la structure de la page",

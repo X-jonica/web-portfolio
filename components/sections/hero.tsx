@@ -13,12 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { SITE_CONFIG } from "@/lib/constants";
 
-const PROFILE_IMAGES = [
-    "/images/profiles/me.jpg",
-    "/images/profiles/me2.jpg",
-    "/images/profiles/me3.jpg",
-    "/images/profiles/me4.jpg",
-];
+const PROFILE_IMAGES = ["/images/profiles/me2.jpg", "/images/profiles/me.jpg"];
 
 export function Hero() {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -29,7 +24,7 @@ export function Hero() {
 
         const interval = setInterval(() => {
             setCurrentIndex((prev) => (prev + 1) % PROFILE_IMAGES.length);
-        }, 2000);
+        }, 4000);
 
         return () => clearInterval(interval);
     }, [isAutoPlaying]);

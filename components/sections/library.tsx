@@ -11,7 +11,7 @@ const TEAM_IMAGES = [
     {
         src: "/images/teams/g-rtx.jpeg",
         title: "Hackathon EMIT 2025",
-        description: "Team G-RTX",
+        description: "Équipe G-RTX",
     },
     {
         src: "/images/teams/g-rtx-coupe.jpg",
@@ -26,7 +26,12 @@ const TEAM_IMAGES = [
     {
         src: "/images/teams/team-hta.jpg",
         title: "Team Hair Transplantation Afrika",
-        description: "Développeurs du projet Hair Transplantation",
+        description: "Développeurs du projet Afrika Hair Transplantation",
+    },
+    {
+        src: "/images/teams/team_ugd.jpg",
+        title: "Équipe UGD travaillant sur l’attribution du NUI à chaque acte de naissance",
+        description: "Développeurs du projet d’attribution du NUI",
     },
 ];
 

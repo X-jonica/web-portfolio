@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, Phone, Linkedin, Github, Facebook, Send } from "lucide-react";
 import {
@@ -16,58 +16,51 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { SITE_CONFIG } from "@/lib/constants";
+import emailjs from "@emailjs/browser";
+import { emailjsConfig } from "../../config/email";
 
 export function Contact() {
     const { toast } = useToast();
+    const formRef = useRef<HTMLFormElement>(null);
     const [formData, setFormData] = useState({
-        name: "",
-        email: "",
+        from_name: "",
+        from_email: "",
+        subject: "",
         message: "",
-        honeypot: "",
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isSubmitted, setIsSubmitted] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-
-        if (formData.honeypot) {
-            return;
-        }
-
-        if (!formData.name || !formData.email || !formData.message) {
-            toast({
-                title: "Erreur",
-                description: "Veuillez remplir tous les champs",
-                variant: "destructive",
-            });
-            return;
-        }
-
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(formData.email)) {
-            toast({
-                title: "Erreur",
-                description: "Veuillez entrer une adresse email valide",
-                variant: "destructive",
-            });
-            return;
-        }
-
         setIsSubmitting(true);
 
+        if (!formRef.current) return;
+
         try {
-            await new Promise((resolve) => setTimeout(resolve, 1000));
+            await emailjs.sendForm(
+                emailjsConfig.serviceId,
+                emailjsConfig.templateId,
+                formRef.current,
+                emailjsConfig.userId
+            );
 
             toast({
                 title: "Message envoyé !",
-                description: "Je vous répondrai dans les plus brefs délais.",
+                description: "Je vous répondrai très bientôt.",
             });
 
-            setFormData({ name: "", email: "", message: "", honeypot: "" });
+            setFormData({
+                from_name: "",
+                from_email: "",
+                subject: "",
+                message: "",
+            });
         } catch (error) {
+            console.error("Email sending error:", error);
             toast({
-                title: "Erreur",
-                description: `Une erreur est survenue. Veuillez réessayer. ${error}`,
+                title: "Erreur lors de l'envoi",
+                description: "Veuillez réessayer plus tard.",
                 variant: "destructive",
             });
         } finally {
@@ -115,41 +108,36 @@ export function Contact() {
                                 </CardHeader>
                                 <CardContent>
                                     <form
+                                        ref={formRef}
                                         onSubmit={handleSubmit}
                                         className="space-y-4"
                                     >
                                         <div className="sr-only">
-                                            <Label htmlFor="honeypot">
-                                                Don&apos;t fill this out
+                                            <Label htmlFor="bot-field">
+                                                Ne pas remplir
                                             </Label>
                                             <Input
-                                                id="honeypot"
-                                                name="honeypot"
-                                                value={formData.honeypot}
-                                                onChange={(e) =>
-                                                    setFormData({
-                                                        ...formData,
-                                                        honeypot:
-                                                            e.target.value,
-                                                    })
-                                                }
+                                                id="bot-field"
+                                                name="bot-field"
                                                 tabIndex={-1}
                                                 autoComplete="off"
                                             />
                                         </div>
 
                                         <div className="space-y-2">
-                                            <Label htmlFor="name">
+                                            <Label htmlFor="from_name">
                                                 Nom complet
                                             </Label>
                                             <Input
-                                                id="name"
+                                                id="from_name"
+                                                name="from_name"
                                                 placeholder="Votre nom"
-                                                value={formData.name}
+                                                value={formData.from_name}
                                                 onChange={(e) =>
                                                     setFormData({
                                                         ...formData,
-                                                        name: e.target.value,
+                                                        from_name:
+                                                            e.target.value,
                                                     })
                                                 }
                                                 required
@@ -157,16 +145,39 @@ export function Contact() {
                                         </div>
 
                                         <div className="space-y-2">
-                                            <Label htmlFor="email">Email</Label>
+                                            <Label htmlFor="from_email">
+                                                Email
+                                            </Label>
                                             <Input
-                                                id="email"
+                                                id="from_email"
+                                                name="from_email"
                                                 type="email"
                                                 placeholder="votre.email@example.com"
-                                                value={formData.email}
+                                                value={formData.from_email}
                                                 onChange={(e) =>
                                                     setFormData({
                                                         ...formData,
-                                                        email: e.target.value,
+                                                        from_email:
+                                                            e.target.value,
+                                                    })
+                                                }
+                                                required
+                                            />
+                                        </div>
+
+                                        <div className="space-y-2">
+                                            <Label htmlFor="subject">
+                                                Sujet
+                                            </Label>
+                                            <Input
+                                                id="subject"
+                                                name="subject"
+                                                placeholder="Objet de votre message"
+                                                value={formData.subject}
+                                                onChange={(e) =>
+                                                    setFormData({
+                                                        ...formData,
+                                                        subject: e.target.value,
                                                     })
                                                 }
                                                 required
@@ -179,6 +190,7 @@ export function Contact() {
                                             </Label>
                                             <Textarea
                                                 id="message"
+                                                name="message"
                                                 placeholder="Votre message..."
                                                 value={formData.message}
                                                 onChange={(e) =>

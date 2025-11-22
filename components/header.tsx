@@ -20,12 +20,30 @@ const NAV_ITEMS = [
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('hero');
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
+
+      // Détection de la section active
+      const sections = NAV_ITEMS.map(item => item.href.replace('#', ''));
+      const currentSection = sections.find(section => {
+        const element = document.getElementById(section);
+        if (!element) return false;
+
+        const rect = element.getBoundingClientRect();
+        return rect.top <= 100 && rect.bottom >= 100;
+      });
+
+      if (currentSection) {
+        setActiveSection(currentSection);
+      }
     };
+
     window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Vérifier au chargement initial
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -33,6 +51,7 @@ export function Header() {
     const element = document.querySelector(href);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
+      setActiveSection(href.replace('#', ''));
     }
     setIsMobileMenuOpen(false);
   };
@@ -55,16 +74,40 @@ export function Header() {
               {SITE_CONFIG.name.split(' ')[0]}
             </button>
 
-            <nav className="hidden lg:flex items-center gap-1">
-              {NAV_ITEMS.map((item) => (
-                <button
-                  key={item.name}
-                  onClick={() => handleNavClick(item.href)}
-                  className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  {item.name}
-                </button>
-              ))}
+            <nav className="hidden lg:flex items-center gap-1 relative">
+              {NAV_ITEMS.map((item) => {
+                const sectionId = item.href.replace('#', '');
+                const isActive = activeSection === sectionId;
+
+                return (
+                  <button
+                    key={item.name}
+                    onClick={() => handleNavClick(item.href)}
+                    className={`relative px-4 py-2 text-sm font-medium transition-colors ${
+                      isActive
+                        ? 'text-foreground'
+                        : 'text-muted-foreground hover:text-foreground'
+                    }`}
+                  >
+                    {item.name}
+
+                    {/* Soulignement animé */}
+                    {isActive && (
+                      <motion.div
+                        layoutId="activeNav"
+                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 300,
+                          damping: 30
+                        }}
+                      />
+                    )}
+                  </button>
+                );
+              })}
             </nav>
 
             <div className="flex items-center gap-2">
@@ -91,16 +134,38 @@ export function Header() {
           className="fixed inset-0 z-40 bg-background lg:hidden"
           style={{ top: '64px' }}
         >
-          <nav className="container mx-auto px-4 py-8 space-y-4">
-            {NAV_ITEMS.map((item) => (
-              <button
-                key={item.name}
-                onClick={() => handleNavClick(item.href)}
-                className="block w-full text-left px-4 py-3 text-lg font-medium hover:bg-accent rounded-lg transition-colors"
-              >
-                {item.name}
-              </button>
-            ))}
+          <nav className="container mx-auto px-4 py-8 space-y-2">
+            {NAV_ITEMS.map((item) => {
+              const sectionId = item.href.replace('#', '');
+              const isActive = activeSection === sectionId;
+
+              return (
+                <button
+                  key={item.name}
+                  onClick={() => handleNavClick(item.href)}
+                  className={`block w-full h-2 text-left px-4 py-3 text-lg font-medium rounded-lg transition-all ${
+                    isActive
+                      ? 'bg-primary text-primary-foreground shadow-md'
+                      : 'hover:bg-accent'
+                  }`}
+                >
+                  <motion.span
+                    initial={{ x: isActive ? 8 : 0 }}
+                    animate={{ x: isActive ? 8 : 0 }}
+                    className="flex items-center gap-2"
+                  >
+                    {item.name}
+                    {isActive && (
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        className="w-2 h-2 bg-primary-foreground rounded-full"
+                      />
+                    )}
+                  </motion.span>
+                </button>
+              );
+            })}
           </nav>
         </motion.div>
       )}
