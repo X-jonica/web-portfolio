@@ -6,6 +6,7 @@ import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { SITE_CONFIG } from '@/lib/constants';
+import { VisiteTracker } from './sections/VisiteTracker';
 
 const NAV_ITEMS = [
   { name: 'Accueil', href: '#hero' },
@@ -169,6 +170,7 @@ export function Header() {
           </nav>
         </motion.div>
       )}
+      <VisiteTracker />
     </>
   );
 }
