@@ -23,8 +23,8 @@ export function Contact() {
     const { toast } = useToast();
     const formRef = useRef<HTMLFormElement>(null);
     const [formData, setFormData] = useState({
-        name: "",
-        email: "",
+        from_name: "",
+        from_email: "",
         subject: "",
         message: "",
     });
@@ -38,7 +38,6 @@ export function Contact() {
         if (!formRef.current) return;
 
         try {
-            // 1. Envoi EmailJS
             await emailjs.sendForm(
                 emailjsConfig.serviceId,
                 emailjsConfig.templateId,
@@ -46,14 +45,17 @@ export function Contact() {
                 emailjsConfig.userId
             );
 
-            // 2. Toast de succès
             toast({
                 title: "Message envoyé !",
                 description: "Je vous répondrai très bientôt.",
             });
 
-            // 3. Reset form
-            setFormData({ name: "", email: "", subject: "", message: "" });
+            setFormData({
+                from_name: "",
+                from_email: "",
+                subject: "",
+                message: "",
+            });
         } catch (error) {
             console.error("Email sending error:", error);
             toast({
@@ -97,7 +99,7 @@ export function Contact() {
                             <Card>
                                 <CardHeader>
                                     <CardTitle>
-                                        Envoyez-moi un subject
+                                        Envoyez-moi un message
                                     </CardTitle>
                                     <CardDescription>
                                         Remplissez le formulaire ci-dessous et
@@ -106,40 +108,36 @@ export function Contact() {
                                 </CardHeader>
                                 <CardContent>
                                     <form
+                                        ref={formRef}
                                         onSubmit={handleSubmit}
                                         className="space-y-4"
                                     >
                                         <div className="sr-only">
-                                            <Label htmlFor="message">
-                                                Don&apos;t fill this out
+                                            <Label htmlFor="bot-field">
+                                                Ne pas remplir
                                             </Label>
                                             <Input
-                                                id="message"
-                                                name="message"
-                                                value={formData.message}
-                                                onChange={(e) =>
-                                                    setFormData({
-                                                        ...formData,
-                                                        message: e.target.value,
-                                                    })
-                                                }
+                                                id="bot-field"
+                                                name="bot-field"
                                                 tabIndex={-1}
                                                 autoComplete="off"
                                             />
                                         </div>
 
                                         <div className="space-y-2">
-                                            <Label htmlFor="name">
+                                            <Label htmlFor="from_name">
                                                 Nom complet
                                             </Label>
                                             <Input
-                                                id="name"
+                                                id="from_name"
+                                                name="from_name"
                                                 placeholder="Votre nom"
-                                                value={formData.name}
+                                                value={formData.from_name}
                                                 onChange={(e) =>
                                                     setFormData({
                                                         ...formData,
-                                                        name: e.target.value,
+                                                        from_name:
+                                                            e.target.value,
                                                     })
                                                 }
                                                 required
@@ -147,16 +145,20 @@ export function Contact() {
                                         </div>
 
                                         <div className="space-y-2">
-                                            <Label htmlFor="email">Email</Label>
+                                            <Label htmlFor="from_email">
+                                                Email
+                                            </Label>
                                             <Input
-                                                id="email"
+                                                id="from_email"
+                                                name="from_email"
                                                 type="email"
                                                 placeholder="votre.email@example.com"
-                                                value={formData.email}
+                                                value={formData.from_email}
                                                 onChange={(e) =>
                                                     setFormData({
                                                         ...formData,
-                                                        email: e.target.value,
+                                                        from_email:
+                                                            e.target.value,
                                                     })
                                                 }
                                                 required
@@ -165,16 +167,36 @@ export function Contact() {
 
                                         <div className="space-y-2">
                                             <Label htmlFor="subject">
-                                                subject
+                                                Sujet
                                             </Label>
-                                            <Textarea
+                                            <Input
                                                 id="subject"
-                                                placeholder="Votre subject..."
+                                                name="subject"
+                                                placeholder="Objet de votre message"
                                                 value={formData.subject}
                                                 onChange={(e) =>
                                                     setFormData({
                                                         ...formData,
                                                         subject: e.target.value,
+                                                    })
+                                                }
+                                                required
+                                            />
+                                        </div>
+
+                                        <div className="space-y-2">
+                                            <Label htmlFor="message">
+                                                Message
+                                            </Label>
+                                            <Textarea
+                                                id="message"
+                                                name="message"
+                                                placeholder="Votre message..."
+                                                value={formData.message}
+                                                onChange={(e) =>
+                                                    setFormData({
+                                                        ...formData,
+                                                        message: e.target.value,
                                                     })
                                                 }
                                                 rows={6}

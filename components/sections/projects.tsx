@@ -2,7 +2,14 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ExternalLink, Github, X, CheckCircle2, Lightbulb } from "lucide-react";
+import {
+    ExternalLink,
+    Github,
+    X,
+    CheckCircle2,
+    Lightbulb,
+    Filter,
+} from "lucide-react";
 import {
     Card,
     CardContent,
@@ -20,10 +27,41 @@ import {
 } from "@/components/ui/dialog";
 import { PROJECTS } from "@/lib/data/projects";
 
+type ProjectFilter = "all" | "professional" | "learning";
+
 export function Projects() {
     const [selectedProject, setSelectedProject] = useState<
         (typeof PROJECTS)[0] | null
     >(null);
+    const [filter, setFilter] = useState<ProjectFilter>("professional");
+
+    // Définir quels projets sont "professionnels"
+    const professionalProjects = [
+        "mozik",
+        "pandemio-tech",
+        "gestion-inscription",
+        "hair-transplant",
+        "gestion-epidemi",
+    ];
+
+    const filteredProjects = PROJECTS.filter((project) => {
+        if (filter === "all") return true;
+        if (filter === "professional") {
+            return professionalProjects.some(
+                (proId) =>
+                    project.id.toLowerCase().includes(proId.toLowerCase()) ||
+                    project.featured
+            );
+        }
+        if (filter === "learning") {
+            return !professionalProjects.some(
+                (proId) =>
+                    project.id.toLowerCase().includes(proId.toLowerCase()) ||
+                    project.featured
+            );
+        }
+        return true;
+    });
 
     return (
         <section id="projects" className="py-20 px-4 md:px-8 bg-secondary/30">
@@ -45,66 +83,133 @@ export function Projects() {
                         </p>
                     </div>
 
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {PROJECTS.map((project, index) => (
-                            <motion.div
-                                key={project.id}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: index * 0.1 }}
-                                whileHover={{ y: -8 }}
+                    {/* Filtres */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2 }}
+                        className="flex justify-center"
+                    >
+                        <div className="flex items-center gap-2 bg-background/50 rounded-lg p-1 border">
+                            <Filter className="w-4 h-4 text-muted-foreground" />
+                            <Button
+                                variant={
+                                    filter === "professional"
+                                        ? "default"
+                                        : "ghost"
+                                }
+                                size="sm"
+                                onClick={() => setFilter("professional")}
+                                className="text-sm"
                             >
-                                <Card
-                                    className="h-full cursor-pointer hover:shadow-xl transition-shadow overflow-hidden group"
-                                    onClick={() => setSelectedProject(project)}
+                                Projets Principaux
+                            </Button>
+                            <Button
+                                variant={
+                                    filter === "learning" ? "default" : "ghost"
+                                }
+                                size="sm"
+                                onClick={() => setFilter("learning")}
+                                className="text-sm"
+                            >
+                                Projets d&apos;Apprentissage
+                            </Button>
+                            <Button
+                                variant={filter === "all" ? "default" : "ghost"}
+                                size="sm"
+                                onClick={() => setFilter("all")}
+                                className="text-sm"
+                            >
+                                Tous
+                            </Button>
+                        </div>
+                    </motion.div>
+
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <AnimatePresence mode="popLayout">
+                            {filteredProjects.map((project, index) => (
+                                <motion.div
+                                    key={project.id}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, scale: 0.9 }}
+                                    transition={{ delay: index * 0.1 }}
+                                    whileHover={{ y: -8 }}
+                                    layout
                                 >
-                                    <div
-                                        className="relative aspect-video overflow-hidden bg-cover bg-center"
-                                        style={{
-                                            backgroundImage: `url(${project.image})`,
-                                        }}
+                                    <Card
+                                        className="h-full cursor-pointer hover:shadow-xl transition-shadow overflow-hidden group"
+                                        onClick={() =>
+                                            setSelectedProject(project)
+                                        }
                                     >
-                                        {project.featured && (
-                                            <Badge className="absolute top-4 right-4">
-                                                Featured
-                                            </Badge>
-                                        )}
-                                    </div>
-                                    <CardHeader>
-                                        <CardTitle className="group-hover:text-primary transition-colors">
-                                            {project.title}
-                                        </CardTitle>
-                                        <CardDescription>
-                                            {project.shortDescription}
-                                        </CardDescription>
-                                    </CardHeader>
-                                    <CardContent>
-                                        <div className="flex flex-wrap gap-2">
-                                            {project.technologies
-                                                .slice(0, 3)
-                                                .map((tech) => (
-                                                    <Badge
-                                                        key={tech}
-                                                        variant="secondary"
-                                                    >
-                                                        {tech}
-                                                    </Badge>
-                                                ))}
-                                            {project.technologies.length >
-                                                3 && (
-                                                <Badge variant="outline">
-                                                    +
-                                                    {project.technologies
-                                                        .length - 3}
+                                        <div
+                                            className="relative aspect-video overflow-hidden bg-cover bg-center"
+                                            style={{
+                                                backgroundImage: `url(${project.image})`,
+                                            }}
+                                        >
+                                            {project.featured && (
+                                                <Badge className="absolute top-4 right-4">
+                                                    Featured
+                                                </Badge>
+                                            )}
+                                            {filter === "learning" && (
+                                                <Badge
+                                                    variant="secondary"
+                                                    className="absolute top-4 left-4"
+                                                >
+                                                    Apprentissage
                                                 </Badge>
                                             )}
                                         </div>
-                                    </CardContent>
-                                </Card>
-                            </motion.div>
-                        ))}
+                                        <CardHeader>
+                                            <CardTitle className="group-hover:text-primary transition-colors">
+                                                {project.title}
+                                            </CardTitle>
+                                            <CardDescription>
+                                                {project.shortDescription}
+                                            </CardDescription>
+                                        </CardHeader>
+                                        <CardContent>
+                                            <div className="flex flex-wrap gap-2">
+                                                {project.technologies
+                                                    .slice(0, 3)
+                                                    .map((tech) => (
+                                                        <Badge
+                                                            key={tech}
+                                                            variant="secondary"
+                                                        >
+                                                            {tech}
+                                                        </Badge>
+                                                    ))}
+                                                {project.technologies.length >
+                                                    3 && (
+                                                    <Badge variant="outline">
+                                                        +
+                                                        {project.technologies
+                                                            .length - 3}
+                                                    </Badge>
+                                                )}
+                                            </div>
+                                        </CardContent>
+                                    </Card>
+                                </motion.div>
+                            ))}
+                        </AnimatePresence>
                     </div>
+
+                    {filteredProjects.length === 0 && (
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            className="text-center py-12"
+                        >
+                            <p className="text-muted-foreground text-lg">
+                                Aucun projet trouvé avec ce filtre.
+                            </p>
+                        </motion.div>
+                    )}
                 </motion.div>
             </div>
 
@@ -166,7 +271,7 @@ export function Projects() {
                                             {selectedProject.challenges.map(
                                                 (challenge, index) => (
                                                     <li
-                                                        key={index + 1}
+                                                        key={index}
                                                         className="flex items-start gap-2 text-muted-foreground"
                                                     >
                                                         <span className="text-primary mt-1">
